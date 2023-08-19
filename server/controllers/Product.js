@@ -19,3 +19,25 @@ exports.addProduct = async (req, res) => {
       res.status(500).json({ message: 'An error occurred while adding the product.' });
     }
   };
+
+
+  exports.getProduct = async(req,res)=>{
+    try{
+
+        const products = await Product.find({}); // Fetch all products from the database
+
+    res.status(200).json({
+        success : true,
+        data : products
+    });
+
+    }
+    catch(error) {
+
+        res.status(500).json({
+            success : false,
+            message : "Not able to fetch the products"
+        });
+        
+  }
+}
