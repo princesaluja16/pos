@@ -4,14 +4,17 @@ const dotenv = require("dotenv");
 const database = require("./config/database");
 const cors = require("cors");
 dotenv.config();
+const userRoutes = require("./routes/User");
 
 const PORT = process.env.PORT || 5000;
+
+//middlewares
+app.use(express.json());
 
 //database connect
 database.connect();
 
-//middlewares
-app.use(express.json());
+
 
 app.use(
 	cors({
@@ -19,6 +22,9 @@ app.use(
 		credentials:true,
 	})
 )
+
+//routes
+app.use("/api/v1/", userRoutes);
 
 app.get("/", (req, res) => {
 	return res.json({
